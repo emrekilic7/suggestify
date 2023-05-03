@@ -1,28 +1,26 @@
 <script setup>
-import { ref } from 'vue'
-import { completions } from './http/chat'
-
-const text = ref('')
-const res = ref('✅ The answer will be displayed here.')
-const BTN_TEXT = 'Submit 🚀'
-const btnText = ref(BTN_TEXT)
-
-const askAi = async() => {
-  btnText.value = 'Thinking...🤔'
-  await completions(text.value).then(function (response) {
-    console.log(response)
-    res.value =  response.data.choices[0].message.content
-  }).catch(function (error) {
-    console.log(error)
-  }).finally(() => {
-    btnText.value = BTN_TEXT
-  })
-}
+import Navbar from './components/Navbar.vue'
 </script>
 
 <template>
-  <input v-model="text" type="text" placeholder="Send a message." />
-  <button @click="askAi"> {{ btnText }} </button>
-  <hr />
-  {{ res }}
+  <Navbar />
+  <router-view v-slot="{ Component }">
+    <Transition name="fade" mode="out-in">
+      <main class="container mx-auto p-4 w-full">
+        <component :is="Component" />
+      </main>
+    </Transition>
+  </router-view>
 </template>
+
+<style scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>
