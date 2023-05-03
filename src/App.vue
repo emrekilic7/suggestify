@@ -6,9 +6,7 @@ import Navbar from './components/Navbar.vue'
   <Navbar />
   <router-view v-slot="{ Component }">
     <Transition name="fade" mode="out-in">
-      <main class="container mx-auto p-4 w-full">
-        <component :is="Component" />
-      </main>
+      <component :is="Component" />
     </Transition>
   </router-view>
 </template>
