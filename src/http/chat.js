@@ -1,4 +1,4 @@
-import api from './api.js'
+import api from './open-ai-api.js'
 
 const systemPrompt = `You are a movie recommendation engine. Users will request recommendations from you by providing certain movie categories and notes about the type of movie they want to watch. Based on these requests, you will provide a total of 1 movie recommendations. You will generate a response in JSON format according to this information.
 

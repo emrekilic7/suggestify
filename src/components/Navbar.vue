@@ -10,8 +10,7 @@
         </div>
         <div class="flex items-center gap-4">
           <router-link :to="{name:'about'}">About</router-link>
-          <router-link :to="{name:'home'}">Register</router-link>
-          <router-link :to="{name:'home'}">Login</router-link>
+          <router-link :to="{name:'test'}">Test</router-link>
         </div>
       </nav>
     </div>

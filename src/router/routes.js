@@ -5,6 +5,7 @@
 // import NotFoundErrorPage from '../pages/errors/NotFoundErrorPage.vue'
 import HomePage from '../pages/HomePage.vue'
 import AboutPage from '../pages/AboutPage.vue'
+import TestPage from '../pages/TestPage.vue'
 
 const routes = [
   {
@@ -13,9 +14,14 @@ const routes = [
     name: 'home',
   },
   {
-    path: '/',
+    path: '/about',
     component: AboutPage,
     name: 'about',
+  },
+  {
+    path: '/test',
+    component: TestPage,
+    name: 'test',
   },
   //   {
   //     path: '/tasks',
