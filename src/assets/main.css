@@ -38,4 +38,8 @@
     .btn-purple {
         @apply p-2 rounded-md border shadow-sm border-[#4C1D95] hover:border-[#660099] hover:bg-gray-50
     }
+
+    .btn.btn-light.active{
+        @apply rounded-md border shadow-sm border-[#4C1D95] bg-[#f4edff] text-[#63498b] hover:border-[#660099] hover:bg-gray-50
+    }
 }
