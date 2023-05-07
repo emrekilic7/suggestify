@@ -1,17 +1,17 @@
 <script setup>
 import { ref } from 'vue'
 import { completions } from '../http/chat'
+import Card from '../components/Card.vue'
 
-const text = ref('Give me a list of 1 movie recommendations that fit all of the following categories: Adventure,Crime. Make sure it fits the following description as well: movies should be in imdb top 250 list and rating should be higher then 8')
-const res = ref('The answer will be displayed here...')
-const BTN_TEXT = 'Submit 🚀'
+const text = ref('Give me a list of 3 movie recommendations that fit all of the following categories: Adventure,Crime.  If you do not have 5 recommendations that fit these criteria perfectly, do your best to suggest other movies that I might like. Please return this response as an array with only movies title! Make sure the answer is only in array type. Do NOT add into your answer anything else other than the array!')
+const BTN_TEXT = 'Explore 🚀'
 const btnText = ref(BTN_TEXT)
+const movies = ref([])
 
 const askAi = async() => {
-  btnText.value = 'Thinking...🤔'
+  btnText.value = 'Hmm... 🤔'
   await completions(text.value).then(function (response) {
-    console.log(response)
-    res.value =  response.data.choices[0].message.content
+    movies.value = JSON.parse(response.data.choices[0].text)
   }).catch(function (error) {
     console.log(error)
   }).finally(() => {
@@ -22,19 +22,24 @@ const askAi = async() => {
 
 <template>
   <main class="container mx-auto p-4 w-full">
-    <section>
-      <div class="border border-gray-200 rounded-md p-4 shadow-sm flex justify-between items-center">
-        <div class="flex-1">
-          <input v-model="text" class="input" type="text" placeholder="Send a message." />
-        </div>
-        <div class="ml-2">
-          <button class="btn-primary" @click="askAi"> {{ btnText }} </button>
+    <section class="px-4 pt-32 pb-16 mx-auto max-w-7xl">
+      <div class="w-full mx-auto text-left md:w-11/12 xl:w-8/12 md:text-center">
+        <h1 class="mb-3 text-4xl font-bold text-[#4C1D95] md:text-5xl md:leading-tight md:font-extrabold">Explore, watch, repeat.</h1>
+        <p class="mb-6 text-lg text-gray-500 md:text-xl md:leading-normal">
+          Welcome to our film recommendation app, powered by state-of-the-art AI technology. With our innovative approach, we're redefining the way you discover and experience movies.
+        </p>
+        <div class="grid w-full grid-cols-1 gap-3 pt-1 mx-auto mb-8">
+          <!-- <label class="col-auto lg:col-span-4">
+            <span class="sr-only">Your Input</span>
+            <input v-model="text" class="mt-0 form-input form-input-lg" />
+          </label> -->
+          <button class="w-full col-auto btn btn-purple btn-lg lg:col-span-2" @click="askAi">{{ btnText }}</button>
         </div>
       </div>
     </section>
 
-    <div class="border border-gray-200 rounded-md p-4 shadow-sm mt-4">
-      {{ res }}
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 w-full">
+      <Card v-for="movie in movies" :key="movie" :movie="movie" />
     </div>
   </main>
 </template>

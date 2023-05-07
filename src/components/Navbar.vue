@@ -1,18 +1,16 @@
 <template>
-  <header class="border-b border-gray-200 bg-white w-full">
-    <div class="container mx-auto">
-      <nav class="p-4 flex items-center justify-between">
-        <div class="text-lg font-medium">
-          <router-link :to="{name:'home'}">Home</router-link>
+  <header class="z-30 w-full px-2 py-4 bg-white sm:px-4 border-b border-gray-200">
+    <div class="flex items-center justify-between mx-auto max-w-7xl">
+      <a href="/" title="Kutty Home Page" class="flex items-center">
+        <img src="../assets/img/suggestify-logo-2.png" />
+        <span class="sr-only">Suggestify</span>
+      </a>
+      <div class="flex items-center space-x-1">
+        <div class="hidden space-x-1 md:inline-flex">
+          <router-link :to="{name:'about'}" class="btn btn-sm btn-link">About</router-link>
+          <!-- <router-link :to="{name:'find-a-movie'}" class="btn btn-sm btn-link">Find A Movie</router-link> -->
         </div>
-        <div class="text-xl text-cyan-700 font-bold text-center">
-          <router-link :to="{name:'home'}">Suggestify</router-link>
-        </div>
-        <div class="flex items-center gap-4">
-          <router-link :to="{name:'about'}">About</router-link>
-          <router-link :to="{name:'test'}">Test</router-link>
-        </div>
-      </nav>
+      </div>
     </div>
   </header>
 </template>
