@@ -1,36 +1,37 @@
 <script setup>
 import { ref, reactive} from 'vue'
 import genres from '../http/genres.json'
-// import { completions } from '../http/chat'
+import { completions } from '../http/chat'
 import Card from '../components/Card.vue'
 
-const text = ref('Give me a list of 3 movie recommendations that fit all of the following categories: Adventure,Crime.  If you do not have 5 recommendations that fit these criteria perfectly, do your best to suggest other movies that I might like. Please return this response as an array with only movies title! Make sure the answer is only in array type. Do NOT add into your answer anything else other than the array!')
 const BTN_TEXT = 'Explore 🚀'
 const btnText = ref(BTN_TEXT)
 const movies = ref([])
 const scroolToBottom = ref(null)
+const activeMap = reactive({})
+const additions = ref()
 
 const askAi = async() => {
+  let additionText = additions.value ? `Make sure it fits the following description as well: ${additions.value}. ` : ''
+
+  let text = `Give me a list of 3 movie recommendations that fit all of the following categories: ${JSON.stringify(Object.keys(activeMap).filter(key => activeMap[key] === true)).replace('[', '').replace(']', '').replace(/['"]+/g, '')}. ${additionText}If you do not have 3 recommendations that fit these criteria perfectly, do your best to suggest other movies that I might like. Please return this response as an array with only movies title! Make sure the answer is only in array type. Do NOT add into your answer anything else other than the array!`
+
   btnText.value = 'Hmm... 🤔'
-  // await completions(text.value).then(function (response) {
-  //   movies.value = JSON.parse(response.data.choices[0].text)
-  // }).catch(function (error) {
-  //   console.log(error)
-  // }).finally(() => {
-  //   btnText.value = BTN_TEXT
-  // })
-  movies.value = ['The Italian Job']
+  await completions(text).then(function (response) {
+    movies.value = JSON.parse(response.data.choices[0].text)
+  }).catch(function (error) {
+    console.log(error)
+  }).finally(() => {
+    btnText.value = BTN_TEXT
+  })
 
   setTimeout(() => scroolToBottom.value?.scrollIntoView({behavior: 'smooth'}), 100)
-  
+  text = ''
+  additionText = ''
 }
-
-const activeMap = reactive({})
-
-const toggleAccordion = (index) => {
-  activeMap[index] = !activeMap[index]
+const toggleAccordion = (data) => {
+  activeMap[data] = !activeMap[data]
 }
-
 </script>
 
 <template>
@@ -44,11 +45,11 @@ const toggleAccordion = (index) => {
         <div class="grid w-full grid-cols-1 gap-3 pt-1 mx-auto mb-8">
           <div class="btn-list">
             <button
-              v-for="(data,index) in genres.genres"
+              v-for="(data) in genres.genres"
               :key="data.id"
               class="text-[#4C1D95] btn btn-light "
-              :class="{ 'active': !!activeMap[index] }"
-              @click="() => toggleAccordion(index)"
+              :class="{ 'active': !!activeMap[data.name] }"
+              @click="() => toggleAccordion(data.name)"
             >
               {{ data.name }}
             </button>
