@@ -14,7 +14,7 @@ const additions = ref()
 const askAi = async() => {
   let additionText = additions.value ? `Make sure it fits the following description as well: ${additions.value}. ` : ''
 
-  let text = `Give me a list of 3 movie recommendations that fit all of the following categories: ${JSON.stringify(Object.keys(activeMap).filter(key => activeMap[key] === true)).replace('[', '').replace(']', '').replace(/['"]+/g, '')}. ${additionText}If you do not have 3 recommendations that fit these criteria perfectly, do your best to suggest other movies that I might like. Please return this response as an array with only movies title! Make sure the answer is only in array type. Do NOT add into your answer anything else other than the array!`
+  let text = `Give me a list of 5 movie recommendations that fit all of the following categories: ${JSON.stringify(Object.keys(activeMap).filter(key => activeMap[key] === true)).replace('[', '').replace(']', '').replace(/['"]+/g, '')}. ${additionText}If you do not have 5 recommendations that fit these criteria perfectly, do your best to suggest other movies that I might like. Please return this response as an array with only movies title! Make sure the answer is only in array type. Do NOT add into your answer anything else other than the array!`
 
   btnText.value = 'Hmm... 🤔'
   await completions(text).then(function (response) {
