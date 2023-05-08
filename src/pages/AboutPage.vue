@@ -1,7 +1,6 @@
 <script setup>
 </script>
 
-
 <template>
   <main class="container mx-auto p-4 w-full">
     <article class="px-4 py-24 mx-auto max-w-7xl" itemid="#" itemscope itemtype="http://schema.org/BlogPosting">
