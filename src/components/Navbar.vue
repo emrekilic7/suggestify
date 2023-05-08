@@ -8,7 +8,6 @@
       <div class="flex items-center space-x-1">
         <div class="hidden space-x-1 md:inline-flex">
           <router-link :to="{name:'about'}" class="btn btn-sm btn-link">About</router-link>
-          <!-- <router-link :to="{name:'find-a-movie'}" class="btn btn-sm btn-link">Find A Movie</router-link> -->
         </div>
       </div>
     </div>

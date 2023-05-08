@@ -1,5 +1,6 @@
 import HomePage from '../pages/HomePage.vue'
 import AboutPage from '../pages/AboutPage.vue'
+import NotFoundErrorPage from '../pages/NotFoundErrorPage.vue'
 
 const routes = [
   {
@@ -11,6 +12,11 @@ const routes = [
     path: '/about',
     component: AboutPage,
     name: 'about',
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    component: NotFoundErrorPage,
+    name: 'error.404',
   },
 ]
 
